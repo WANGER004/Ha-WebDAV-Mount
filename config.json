@@ -1,31 +1,30 @@
 {
   "name": "Ha-WebDAV-Mount",          // 插件名称
   "version": "1.0.1",                 // 插件版本
-  "slug": "ha_webdav_mount_ui",       // 唯一标识
-  "description": "通过交互式 UI 配置将 WebDAV 存储挂载到 Home Assistant。",
+  "slug": "ha_webdav_mount_ui",       // 唯一标识，用于 HA 管理
+  "description": "通过交互式 UI 配置将 WebDAV 存储挂载到 Home Assistant。", // 插件描述
   "url": "https://github.com/WANGER004/Ha-WebDAV-Mount", // 项目地址
-  "arch": ["amd64", "armhf", "armv7", "aarch64"],        // 支持的架构
-  "startup": "services",              // HA 启动顺序
-  "boot": "auto",                     // HA 启动方式
-  "ingress": true,                    // 开启 HA Ingress
-  "ingress_port": 8127,               // 映射到 HA 的端口
-  "panel_icon": "mdi:folder-network", // 面板图标
-  "options": {                        // 默认配置选项
-    "webdav_url": "http://192.168.0.66:5244/", // WebDAV 地址
-    "username": "",                    // 用户名
-    "password": "",                    // 密码
-    "mount_path": "/mnt/webdav"       // 挂载路径
+  "arch": ["amd64", "armhf", "armv7", "aarch64"],        // 支持的 CPU 架构
+  "startup": "services",              // 启动顺序（services 表示依赖 HA 服务启动）
+  "boot": "auto",                     // 容器启动方式（auto 自动启动）
+  "ingress": false,                   // 是否开启 HA Ingress，false 表示关闭，直接访问端口
+  "panel_icon": "mdi:folder-network", // 面板图标（HA UI 左侧显示）
+  "options": {                        // 插件默认配置选项
+    "webdav_url": "http://192.168.0.66:5244/", // WebDAV 服务器地址
+    "username": "",                    // WebDAV 用户名
+    "password": "",                    // WebDAV 密码
+    "mount_path": "/mnt/webdav"       // 容器内挂载路径
   },
-  "schema": {                         // 配置校验类型
+  "schema": {                         // 配置校验类型，确保输入类型正确
     "webdav_url": "str",
     "username": "str",
     "password": "str",
     "mount_path": "str"
   },
-  "environment": {
-    "TZ": "Asia/Shanghai"             // 时区设置为中国
+  "environment": {                     // 容器环境变量
+    "TZ": "Asia/Shanghai"             // 设置时区为中国
   },
-  "privileged": true,                 // 允许挂载需要的特权
-  "devices": [],                      // 不映射额外设备
-  "host_network": false               // 不使用主机网络
+  "privileged": true,                 // 开启特权模式，允许挂载 davfs2 所需权限
+  "devices": [],                      // 不额外映射宿主机设备
+  "host_network": false               // 不使用宿主机网络
 }
