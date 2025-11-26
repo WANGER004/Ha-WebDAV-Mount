@@ -1,31 +1,31 @@
 {
-  "name": "Ha-WebDAV-Mount",
-  "version": "1.0.1",
-  "slug": "ha_webdav_mount_ui",
+  "name": "Ha-WebDAV-Mount",          // 插件名称
+  "version": "1.0.1",                 // 插件版本
+  "slug": "ha_webdav_mount_ui",       // 唯一标识
   "description": "通过交互式 UI 配置将 WebDAV 存储挂载到 Home Assistant。",
-  "url": "https://github.com/WANGER004/Ha-WebDAV-Mount", # [建议] 添加你的项目地址
-  "arch": ["amd64", "armhf", "armv7", "aarch64"],
-  "startup": "services",
-  "boot": "auto",
-  "ingress": true,
-  "ingress_port": 80,
-  "panel_icon": "mdi:folder-network",
-  "options": {
-    "webdav_url": "http://192.168.0.66:5244/",
-    "username": "",
-    "password": "",
-    "mount_path": "/mnt/webdav"
+  "url": "https://github.com/WANGER004/Ha-WebDAV-Mount", // 项目地址
+  "arch": ["amd64", "armhf", "armv7", "aarch64"],        // 支持的架构
+  "startup": "services",              // HA 启动顺序
+  "boot": "auto",                     // HA 启动方式
+  "ingress": true,                    // 开启 HA Ingress
+  "ingress_port": 8127,               // 映射到 HA 的端口
+  "panel_icon": "mdi:folder-network", // 面板图标
+  "options": {                        // 默认配置选项
+    "webdav_url": "http://192.168.0.66:5244/", // WebDAV 地址
+    "username": "",                    // 用户名
+    "password": "",                    // 密码
+    "mount_path": "/mnt/webdav"       // 挂载路径
   },
-  "schema": {
+  "schema": {                         // 配置校验类型
     "webdav_url": "str",
     "username": "str",
     "password": "str",
     "mount_path": "str"
   },
   "environment": {
-    "TZ": "Asia/Shanghai" # [建议] 添加时区支持
+    "TZ": "Asia/Shanghai"             // 时区设置为中国
   },
-  "privileged": true, # [重要] 挂载文件系统需要特权模式
-  "devices": [],
-  "host_network": false
+  "privileged": true,                 // 允许挂载需要的特权
+  "devices": [],                      // 不映射额外设备
+  "host_network": false               // 不使用主机网络
 }
